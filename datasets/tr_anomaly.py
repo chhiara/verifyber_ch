@@ -174,8 +174,8 @@ class TractAnomlayDataset(gDataset):
             n_streamlines=T.header['nb_streamlines']
 
         elif self.data_ext=="npy":
-            streams_sep = np.load(T_file, allow_pickle=True)
-            n_streamlines = streams_sep.shape[0]
+            streams_laoded = np.load(T_file, allow_pickle=True)
+            n_streamlines = streams_laoded.shape[0]
         else:
             raise(f"Error: data_ext nor 'npy or 'trk' as expected, but {self.data_ext}")
 
@@ -233,11 +233,22 @@ class TractAnomlayDataset(gDataset):
             #NB: by defualt load streamlineuses array:flat
             streams, lengths = load_streamlines_fast(T_file,
                                                     sample['points'].tolist())
+            #print(f"streams.shape: {streams.shape}")
+            #print(f"sample['points']: {len(sample['points'])}")
+
         elif self.data_ext=="npy":
-            lengths = np.array([ s.shape[0] for s in streams_sep], int)
-            streams = np.concatenate(streams_sep, axis=0)
+            
+            
+            streams_sampled = np.array([streams_laoded[i_streamline] for i_streamline in sample['points']], object)
+            
+            lengths = np.array([ s.shape[0] for s in streams_laoded], int)
+            streams = np.concatenate(streams_sampled, axis=0)
             streams = streams.astype(np.float32)
-        
+            
+            #print(f"streams_sampled: {streams_sampled.shape}")
+            #print(f"streams.shape: {streams.shape}")
+            #print(f"sample['points']: {len(sample['points'])}")
+            
 
         if self.same_size:
             #present in hcpc version
