@@ -28,3 +28,24 @@ The output are two text files containing the indexes of plausible and non-plausi
 
 ## Docker containers 
 See docker://pietroastolfi/tractogram-filtering:<tag>, <tag>=cpu|gpu. Note that the gpu container works with CUDA 10
+
+
+## Model notes
+* DEC: 1st layer dinamic endge convolution - build by it self the graph structure
+* sDEC: 1st layer edge convolution  - Samuel uses this
+
+    *  2nd layer: dinamic edge convolution in both
+    *  mathematically they should do the same thing
+
+
+
+%## parameters documentation (partial)
+
+## Set cuda device
+* Define variable  device="cuda:<GPU-IDX>"  eg: device="cuda:0"       
+
+* if I run  verifyber with a container, by passing GPU indexes, the indexing of the GPU inside the container starts always from 0. 
+
+* In the code do: model.to(device)   and also laod the data to device
+
+
