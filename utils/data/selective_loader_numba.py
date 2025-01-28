@@ -88,7 +88,7 @@ def load_streamlines(trk_fn,
     vox_size = header['voxel_sizes']
 
     if idxs is None:
-        idxs = np.arange(nb_streamlines, dtype=np.int32)
+        idxs = np.arange(nb_streamlines, dtype=int32)
     elif isinstance(idxs, int):
         if verbose:
             print('Sampling %s streamlines uniformly at random' % idxs)
@@ -100,7 +100,7 @@ def load_streamlines(trk_fn,
                                 idxs,
                                 replace=replace)
     elif isinstance(idxs, list):
-        idxs = np.array(idxs, dtype=np.int)
+        idxs = np.array(idxs, dtype=int)
 
     ## See: http://www.trackvis.org/docs/?subsect=fileformat
     length_bytes = 4
@@ -164,7 +164,7 @@ def load_streamlines(trk_fn,
         lengths[:] = resample
 
     if container == 'array':
-        streamlines = np.array(streamlines, dtype=np.object)
+        streamlines = np.array(streamlines, dtype=object)
     elif container == 'ArraySequence':
         streamlines = nib.streamlines.ArraySequence(streamlines)
     elif container == 'list':
