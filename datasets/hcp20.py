@@ -68,6 +68,8 @@ class HCP20Dataset(gDataset):
             split_obj=False
         if split_obj:
             self.remaining = [[] for _ in range(len(subjects))]
+        
+
         self.split_obj = split_obj
         if with_gt:
             self.labels = []
@@ -121,6 +123,9 @@ class HCP20Dataset(gDataset):
         gt = self.labels[idx]
         #print('\tload gt %f' % (time.time()-t0))
         if self.split_obj:
+            #split_obj: is True only at test time. If true each subject is loaded 
+            #in different batches, until the streamlines are all loaded. So I have to consder which streamlines
+            #are still not loaded in each iteration. This is is stored in self.remaining[idx] 
             if len(self.remaining[idx]) == 0:
                 self.remaining[idx] = set(np.arange(T.header['nb_streamlines']))
             sample = {'points': np.array(list(self.remaining[idx]))}
@@ -135,10 +140,12 @@ class HCP20Dataset(gDataset):
 
         #t0 = time.time()
         if self.transform:
+            #sample randomly some streamlines in a number equal to fixed size
             sample = self.transform(sample)
         #print('\ttime sampling %f' % (time.time()-t0))
 
         if self.split_obj:
+            #  self.remaining[idx] is updated to remove the sampled streamlines
             self.remaining[idx] -= set(sample['points'])
             sample['obj_idxs'] = sample['points'].copy()
             sample['obj_full_size'] = T.header['nb_streamlines']
@@ -147,19 +154,29 @@ class HCP20Dataset(gDataset):
         sample['name'] = T_file.split('/')[-1].rsplit('.', 1)[0]
         sample['dir'] = sub_dir
 
+        #number of streamlines (of indexes of streamlines after random sampling)
+        #sample[points]: indexes of streamlines sampled after random sampling in self.transform
         n = len(sample['points'])
+
         #t0 = time.time()
+
+        #self.same_size: I (chhiara) think that same_size==True if I am 
+        #assuming the streamlines have each one the same number of points
+        #False otherwise
         if self.same_size:
             # streams, lengths = load_selected_streamlines_uniform_size(T_file,
                                                     # sample['points'].tolist())
             streams, lengths = load_streamlines_fast(T_file,
                                                     sample['points'].tolist())
             if self.centering:
+                #to center the coordiantes to zero
                 streams_centered = streams.reshape(-1, lengths[0], 3)
                 streams_centered -= streams_centered.mean(axis=1)[:,None,:]
                 streams = streams_centered.reshape(-1,3)
             if self.permute:
                 # import ipdb; ipdb.set_trace()
+                #to flip the streamline or permute points order within streamlines. The latter makes sense only 
+                #in case there are no edges between points
                 streams_perm = self.permute_pts(
                     streams.reshape(-1, lengths[0], 3), type='flip')
                 streams = streams_perm.reshape(-1, 3)
@@ -217,11 +234,28 @@ class HCP20Dataset(gDataset):
         #sls_lengths = torch.from_numpy(sls_lengths)
         lengths = torch.from_numpy(lengths).long()
         #print('sls lengths:',sls_lengths)
+
+        #if lengths=[4,5,3]  ->  batch_vec=[0000,11111,222]
+        #lengths: number of points of each streamline
         batch_vec = torch.arange(len(lengths)).repeat_interleave(lengths)
+
+        #batch_slices: indexes of start of each streamline
+        #first streamline begin from 0, the successive with the indexes defined by
+        # the cumulative sum of the lengths
         batch_slices = torch.cat([torch.tensor([0]), lengths.cumsum(dim=0)])
+
+        #erase first and last element
         slices = batch_slices[1:-1]
+
+
         streams = torch.from_numpy(streams)
+
+        #number of points in total of all streamlines
         l = streams.shape[0]
+
+        #features and spatial position correspond
+        #x=streams -> features of the nodes
+        #pos=streams-> spatial position of the nodes 
         graph_sample = gData(x=streams,
                              lengths=lengths,
                              #sls_lengths=sls_lengths,
@@ -229,15 +263,27 @@ class HCP20Dataset(gDataset):
                              pos=streams)
         #                     bslices=batch_slices)
         #edges = torch.empty((2, 2*l - 2*n), dtype=torch.long)
+
+
         if self.return_edges:
+            #create the edges that should directionally connect the 
+            #the contigous points, exclusind the terminal points of each streamline
+
+            #erase the point index of the each last streamline point
             e1 = set(np.arange(0,l-1)) - set(slices.numpy()-1)
+
+            #erase the point index of each first streamline point
             e2 = set(np.arange(1,l)) - set(slices.numpy())
+            
             edges = torch.tensor([list(e1)+list(e2),list(e2)+list(e1)],
                             dtype=torch.long)
+            
+            
             graph_sample['edge_index'] = edges
             num_edges = graph_sample.num_edges
             edge_attr = torch.ones(num_edges,1)
             graph_sample['edge_attr'] = edge_attr
+
         if self.distance:
             graph_sample = self.distance(graph_sample)
         #if self.self_loops:
