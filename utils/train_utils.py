@@ -28,7 +28,11 @@ def create_tb_logger(cfg):
     os.system('ln -sr %s/%s %s/%s ' %
               (logdir, tb_log_name, tb_log_dir, tb_log_name))
 
+    print(f"Create writer at the path")
+    print(f'{tb_log_dir}/{tb_log_name} ---> symlink to--> {logdir}/{tb_log_name}')
+
     # os.system('cp configs/main_dsl_config.py %s/config.txt' % (writer.log_dir))
+    #write config variables to a txt file at the path <writer.log_dir>/config.txt
     cfg['cfg_parser_obj'].write(open('%s/config.txt' % (writer.log_dir), 'w'))
 
     return writer

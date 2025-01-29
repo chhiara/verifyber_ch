@@ -10,7 +10,6 @@ from torch.utils.data.dataloader import DataLoader
 from torch_geometric.data import Batch as gBatch
 from torch_geometric.data import DataListLoader as gDataLoader
 from torchvision import transforms
-
 from .transforms import *
 
 
@@ -100,6 +99,9 @@ def get_gbatch_sample(sample, sample_size, same_size, return_name=False):
     data_list = []
     name_list = []
     ori_batch = []
+    #print(f"type(sample): {type(sample)}")
+    #print(f"len(sample): {len(sample)}")
+    
     for i, d in enumerate(sample):
         if 'bvec' in d['points'].keys:
             d['points'].bvec += sample_size * i

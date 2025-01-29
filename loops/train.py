@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
+import inspect
 
 from utils.data.data_utils import get_dataset, get_gbatch_sample
 from utils.general_utils import (
@@ -39,8 +40,11 @@ def train_ep(cfg, dataloader, model, optimizer, writer, epoch, n_iter):
     ep_loss = 0.0
     ep_loss_dict = initialize_loss_dict(cfg)
     metrics = initialize_metrics()
-
+    
+    #by iterating trough dataloader object I get each sample batch: ie data list
+    #with each element a sample from a subject
     for i_batch, sample_batched in enumerate(dataloader):
+        #print("Len sample_batched in train_ep ",len(sample_batched))  #out: 2 with batch size=2
 
         ### reorganize the batch in term of streamlines
         points = get_gbatch_sample(
@@ -58,10 +62,18 @@ def train_ep(cfg, dataloader, model, optimizer, writer, epoch, n_iter):
         if not cfg["accumulation_interval"] or i_batch == 0:
             optimizer.zero_grad()
 
+        #points.batch and points.x.data
+        #have the 1st shape dimension equal to the number of the points of 
+        #the samples concatenated in a single batch. points.x.data
+        # has an additional dimension equal to the numb of spatial dimension
+        #print("points.batch", points.batch.shape)   #eg  torch.Size([48180, 3]
+        #print("points.x.data", (points.x.data).shape) #eg torch.Size([48510])
+
         ### forward
         logits = model(points)
 
         ### minimize the loss
+        #logits are the prediction of the model, logits the ground truth
         loss = compute_loss(cfg, logits, target, ep_loss_dict)
         ep_loss += loss.item()
         running_ep_loss = ep_loss / (i_batch + 1)
@@ -201,6 +213,7 @@ def train(cfg):
         # prop_vector=[1, 1]))
         trans_val.append(RndSampling(sample_size, maintain_prop=False))
 
+    #create dataset and dataloader object
     dataset, dataloader = get_dataset(cfg, trans=trans_train)
     val_dataset, val_dataloader = get_dataset(cfg, trans=trans_val, train=False)
     # summary for tensorboard
