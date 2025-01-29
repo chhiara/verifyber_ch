@@ -144,7 +144,7 @@ class TractAnomlayDataset(gDataset):
                            See below
 
                     'gt': 
-                            xx  #ground truth of the streamlines. List of 0,1 if 2 classes
+                            xx  #ground truth of the streamlines. np array of 0,1 if 2 classes
                     'obj_idxs':
                             #list of streamlines idx sampled (defined only if self.split_obj==True)
                     'obj_full_size':
@@ -198,9 +198,9 @@ class TractAnomlayDataset(gDataset):
         #t0 = time.time()
         if self.transform:
             #sample randomly some streamlines in a number equal to fixed size
-            #in this function I sample n streamlines randomly from alla available streamlines
+            #in this function I sample n streamlines randomly from all available streamlines
             #sample is transfrmed so that 
-            #       sample={points: idx of streamlines sampled of len fixed size,
+            #       sample={points: idx of streamlines sampled of len fixed_size,
                             #gt: are the corresponding ground truth}
 
             sample = self.transform(sample)
@@ -239,15 +239,15 @@ class TractAnomlayDataset(gDataset):
         elif self.data_ext=="npy":
             
             
-            streams_sampled = np.array([streams_laoded[i_streamline] for i_streamline in sample['points']], object)
-            
-            lengths = np.array([ s.shape[0] for s in streams_laoded], int)
-            streams = np.concatenate(streams_sampled, axis=0)
-            streams = streams.astype(np.float32)
+            #streams_sampled = np.array([streams_laoded[i_streamline] for i_streamline in sample['points']], object)
+            streams_sampled = streams_laoded[sample['points']] 
+            lengths = np.array([ s.shape[0] for s in streams_sampled], int)
+            streams = (np.concatenate(streams_sampled, axis=0)).astype(np.float32)
             
             #print(f"streams_sampled: {streams_sampled.shape}")
+            #print(f"streams_sampled[0].shape: {streams_sampled[0].shape}")
             #print(f"streams.shape: {streams.shape}")
-            #print(f"sample['points']: {len(sample['points'])}")
+            #print(f"sample['points']: {len(sample['points'])} {type(sample['points'])}   sample['points'][:4]{sample['points'][:4]}")
             
 
         if self.same_size:
@@ -305,7 +305,6 @@ class TractAnomlayDataset(gDataset):
         sample['points'] = self.build_graph_sample(streams,
                     lengths,
                     torch.from_numpy(sample['gt']) if self.with_gt else None)
-
 
        
         return sample
