@@ -68,7 +68,8 @@ def get_dataset(cfg, trans, train=True):
                                         labels_dir=cfg['labels_dir'],
                                         labels_name=cfg['labels_name'],
                                         data_ext=cfg['data_ext'],
-                                        data_name=cfg['data_name'])
+                                        data_name=cfg['data_name'],
+                                        bundle_name=cfg['bundle_name'])
 
     dataloader = gDataLoader(dataset,
                              batch_size=batch_size,
