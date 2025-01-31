@@ -86,7 +86,7 @@ class TractAnomlayDataset(gDataset):
                 pattern_lab_fn=os.path.join(self.root_dir, sb_tr, sb_tr + '*' + sub_br + '*' + labels_name + '*'+ bundle_name + '*' )
                 label_file_li=glob.glob(pattern_lab_fn)
                 assert len(label_file_li)==1, f"Error: Number of Label file unexpected, should be 1 but N files:{len(label_file_li)}\n {label_file_li}\n pattern_lab_fn: {pattern_lab_fn}"
-                print(f"pattern_lab_fn", pattern_lab_fn)
+                #print(f"pattern_lab_fn", pattern_lab_fn)
                 
                 label_file = label_file_li[0]
                 
@@ -166,7 +166,7 @@ class TractAnomlayDataset(gDataset):
         pattern_data_fn=os.path.join(self.root_dir, sb_tr, sb_tr + '*' + sub_br + '*' +  self.data_name + '*'+ self.bundle_name + '*' + self.data_ext)
         #pattern_data_fn=os.path.join(self.root_dir, '*' + sub + '*' + self.data_name + '*' + self.data_ext)
         T_file_li=glob.glob(os.path.join(pattern_data_fn))
-        print(f"pattern_data_fn", pattern_data_fn)
+        #print(f"pattern_data_fn", pattern_data_fn)
         assert len(T_file_li)==1, f"Error: Number of Data file unexpected, should be 1 but N files: {len(T_file_li)}\n Files: {T_file_li}\n pattern_data_fn: {pattern_data_fn}"
         T_file= T_file_li[0]
 
