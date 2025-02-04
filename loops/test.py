@@ -77,12 +77,29 @@ def test(cfg):
                                         add_tangent=False,
                                         split_obj=True
                                         )
+    elif cfg['dataset'] == 'tr_anomaly':
+        dataset = ds.TractAnomlayDataset(cfg['sub_list_test'],
+                                        cfg['dataset_dir'],
+                                        transform=transforms.Compose(trans_val),
+                                        with_gt=cfg['with_gt'],
+                                        #distance=T.Distance(norm=True,cat=False),
+                                        return_edges=True,
+                                        split_obj=True,
+                                        train=False,
+                                        load_one_full_subj=False,
+                                        labels_dir=cfg['labels_dir'],
+                                        labels_name=cfg['labels_name'],
+                                        data_ext=cfg['data_ext'],
+                                        data_name=cfg['data_name'],
+                                        bundle_name=cfg['bundle_name'])
+     
+
     else:
         sys.exit('Unexisting dataset chosen')
 
 
     dataloader = DataLoader(dataset, batch_size=batch_size,
-                            shuffle=False, num_workers=0)
+                            shuffle=False, num_workers=10)
     print("Validation dataset loaded, found %d samples" % (len(dataset)))
 
     for ext in range(100):
@@ -121,6 +138,7 @@ def test(cfg):
             mean_val_iou = torch.tensor([])
             mean_val_prec = torch.tensor([])
             mean_val_recall = torch.tensor([])
+            mean_val_dsc_ch =  torch.tensor([])
         elif cfg['task'] == 'regression':
             mean_val_mse = torch.tensor([])
             mean_val_mae = torch.tensor([])
@@ -208,9 +226,13 @@ def test(cfg):
                     fp = obj_pred_choice.gt(obj_target.data.int()).cpu().sum().item()
                     fn = obj_pred_choice.lt(obj_target.data.int()).cpu().sum().item()
                     tn = correct.item() - tp
+
                     iou = torch.tensor([float(tp)/(tp+fp+fn)])
                     prec = torch.tensor([float(tp)/(tp+fp)])
                     recall = torch.tensor([float(tp)/(tp+fn)])
+                    dsc_ch = torch.tensor([ (float(tp) *2) / (2*tp + fp + fn)]) #dsc computation added by chhiara
+                    #print("dsc_ch",dsc_ch)
+                    mean_val_dsc_ch = torch.cat((mean_val_dsc_ch, dsc_ch), 0)
                     mean_val_prec = torch.cat((mean_val_prec, prec), 0)
                     mean_val_recall = torch.cat((mean_val_recall, recall), 0)
                     mean_val_iou = torch.cat((mean_val_iou, iou), 0)
@@ -283,6 +305,8 @@ def test(cfg):
             print('TEST PRECISION: %f' % torch.mean(mean_val_prec).item())
             print('TEST RECALL: %f' % torch.mean(mean_val_recall).item())
             print('TEST IOU: %f' % torch.mean(mean_val_iou).item())
+            print('TEST DSC_ch: %f' % torch.mean(mean_val_dsc_ch).item())
+
             mean_val_dsc = mean_val_prec * mean_val_recall * 2 / (mean_val_prec + mean_val_recall)
             final_scores_file = writer.log_dir + '/final_scores_test_%d.txt' % epoch
             scores_file = writer.log_dir + '/scores_test_%d.txt' % epoch
@@ -296,6 +320,8 @@ def test(cfg):
                 f.writelines('%f\n' % v for v in  mean_val_recall.tolist())
                 f.write('dsc\n')
                 f.writelines('%f\n' % v for v in  mean_val_dsc.tolist())
+                f.write('dsc ch\n')
+                f.writelines('%f\n' % v for v in  mean_val_dsc_ch.tolist())
             with open(final_scores_file, 'w') as f:
                 f.write('acc\n')
                 f.write('%f\n' % mean_val_acc.mean())
@@ -309,5 +335,8 @@ def test(cfg):
                 f.write('dsc\n')
                 f.write('%f\n' % mean_val_dsc.mean())
                 f.write('%f\n' % mean_val_dsc.std())
+                f.write('dsc ch\n')
+                f.write('%f\n' % mean_val_dsc_ch.mean())
+                f.write('%f\n' % mean_val_dsc_ch.std())
 
     print('\n\n')
