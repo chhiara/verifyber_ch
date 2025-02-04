@@ -1,0 +1,121 @@
+[DEFAULT]
+#---config file copied from sdec_extractor/
+########### model ###########
+model = sdec
+batch_norm = y
+dropout = n
+spatial_tn = n
+knngraph = 5
+k = 5
+pool_op = max
+
+########## training ###########
+n_epochs = 1000
+
+optimizer = adam
+accumulation_interval = n
+lr_type = step
+learning_rate = 1e-3
+min_lr = 5e-5
+lr_ep_step = 90
+lr_gamma = 0.7
+momentum = 0.9
+patience = 100
+
+weight_decay = 5e-4
+weight_init = n
+
+bn_decay = n
+bn_decay_init = 0.5
+bn_decay_step = 90
+bn_decay_gamma = 0.5
+
+########## loss ###########
+loss = nll
+nll_w = n
+
+########### general ###########
+val_in_train = y
+val_freq = 20
+
+n_workers = 12
+
+model_dir = models
+save_model = y
+save_pred = n
+
+seed = 10
+
+########### logging ###########
+verbose = n
+print_bwgraph = n
+
+####### ************************************************************************
+####### ************************************************************************
+####### ************************************************************************
+
+[TR-ANOMALY]
+task = classification
+########### data ###########
+dataset = tr_anomaly
+
+# data_ext can be trk or npy
+data_ext=npy 
+data_name=__encoded__
+labels_name=__Label__1bdl_0neg__
+
+#real path
+#dataset_dir = /raid/home/nilab/chiara/datasets/input_model/40pos_30negnn_30neg_vox_int/
+#labels_dir = /raid/home/nilab/chiara/datasets/input_model/40pos_30negnn_30neg_vox_int/
+
+#sub_list_train = /raid/home/nilab/chiara/datasets/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__ILF_L.txt
+#sub_list_val = /raid/home/nilab/chiara/datasets/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__ILF_L.txt
+#sub_list_test = /raid/home/nilab/chiara/datasets/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
+
+#path mnt in container
+dataset_dir = /app/data/input_model/40pos_30negnn_30neg_vox_int/
+labels_dir = /app/data/input_model/40pos_30negnn_30neg_vox_int/
+val_dataset_dir = /app/data/input_model/40pos_30negnn_30neg_vox_int/
+
+
+sub_list_train = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__ILF_L.txt
+sub_list_val = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__ILF_L.txt
+sub_list_test = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
+
+#only to test code
+#sub_list_test = /app/data/input_model/ilf_train_split/test_ts.txt
+
+bundle_name = ILF_L
+
+#fixed size train
+#fixed_size = 1500
+
+#fixed size test
+fixed_size = 6000
+
+
+# dimensionality of input, if normal streamlines dimensions are (x,y,z) -> 3
+data_dim = 3 
+embedding_size = 40
+fold_size = 2
+return_edges = y
+
+batch_size = 16
+repeat_sampling = 3
+shuffling = y
+rnd_sampling = y
+standardization = n
+centering = n
+n_classes = 2
+ignore_class = 0
+same_size = 0
+
+#these values were taken from deafult config
+nll_w_decay = n # class re-weighting decay
+#nll_w_decay_step = 90
+
+experiment_name = sdec_nodropout_loss_nll-tracto-anomaly-ilf-l
+
+####### ************************************************************************
+####### ************************************************************************
+####### ************************************************************************
