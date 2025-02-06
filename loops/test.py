@@ -253,8 +253,14 @@ def test(cfg):
                 
             if cfg['save_pred'] and consumed:
                 print('buffering prediction %s' % sample_name)
-                #sl_idx = np.where(obj_pred.data.cpu().view(-1).numpy() == 1)[0]
-                #pred_buffer[sample_name] = sl_idx.tolist()
+                sl_idx = np.where(obj_pred_choice.data.cpu().view(-1).numpy() == 1)[0]
+                pred_buffer[sample_name] = sl_idx.tolist()
+                #print("sl_idx", sl_idx[:10])
+                #print( "obj_pred.data", obj_pred_choice.data[:10] )
+                #print( "obj_pred_choice.data.view(-1):", obj_pred_choice.data.view(-1)[:10] )
+                #print( " np.where(obj_pred_choice.data.cpu().view(-1).numpy() == 1)", np.where(obj_pred_choice.data.cpu().view(-1).numpy() == 1) [:10] )
+                #print("\n\n")
+                
 
             if consumed:
                 print(j)
@@ -263,16 +269,16 @@ def test(cfg):
                     consumed = False
                     new_obj_read = True
 
-    #if cfg['save_pred']:
+    if cfg['save_pred']:
         #os.system('rm -r %s/predictions_test*' % writer.log_dir)
-     #   pred_dir = writer.log_dir + '/predictions_test_%d' % epoch
-      #  if not os.path.exists(pred_dir):
-       #     os.makedirs(pred_dir)
-        #print('saving files')
-        #for filename, value in pred_buffer.items():
-        #    with open(os.path.join(pred_dir, filename) + '.pkl', 'wb') as f:
-        #        pickle.dump(
-        #            value, f, protocol=pickle.HIGHEST_PROTOCOL)
+        pred_dir = writer.log_dir + '/predictions_test_%d' % epoch
+        if not os.path.exists(pred_dir):
+           os.makedirs(pred_dir)
+        print('saving files')
+        for filename, value in pred_buffer.items():
+           with open(os.path.join(pred_dir, filename) + '.pkl', 'wb') as f:
+               pickle.dump(
+                   value, f, protocol=pickle.HIGHEST_PROTOCOL)
 
     if cfg['with_gt']:
         if cfg['task'] == 'regression':
