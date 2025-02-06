@@ -26,6 +26,6 @@ cd $repo_verifyber_path
 #Test
 best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ilf-l_1/models/best_model_ep-300_score-0.778140.pth"
 python main.py TR-ANOMALY -opt test --exp ${experiment_path}\
-              --with_gt  --weights ${best_model_path} &> $log_file_test 
+              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
               
 
