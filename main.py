@@ -5,6 +5,7 @@ import sys
 import argparse
 import configparser
 import glob
+import torch
 
 from loops.test import test
 from loops.train import train
@@ -12,6 +13,7 @@ from utils.general_utils import get_cfg_value, print_cfg, set_seed
 
 if __name__ == '__main__':
 
+    torch.cuda.empty_cache()
 
     #### ARGUMENT PARSING
     parser = argparse.ArgumentParser()
