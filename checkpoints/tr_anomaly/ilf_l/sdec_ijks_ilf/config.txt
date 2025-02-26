@@ -10,10 +10,10 @@ k = 5
 pool_op = max
 
 ########## training ###########
-#n_epochs = 1000
+n_epochs = 1000
 
 #to test
-n_epochs = 2
+#n_epochs = 2
 
 
 optimizer = adam
@@ -85,14 +85,13 @@ val_dataset_dir = /app/data/input_model//tractograms_filt_forTumDefLeft_Tumwarpe
 
 
 #--sublist to test code
-sub_list_test = /app/data/input_model/ilf_train_split/test_ts.txt
-sub_list_val = /app/data/input_model/ilf_train_split/test_vl.txt
-sub_list_train = /app/data/input_model/ilf_train_split/test_tr.txt
+#sub_list_test = /app/data/input_model/ilf_train_split/test_ts.txt
+#sub_list_val = /app/data/input_model/ilf_train_split/test_vl.txt
+#sub_list_train = /app/data/input_model/ilf_train_split/test_tr.txt
 
-#TODO: uncomment
-#sub_list_train = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__ILF_L.txt
-#sub_list_val = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__ILF_L.txt
-#sub_list_test = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
+sub_list_train = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__ILF_L.txt
+sub_list_val = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__ILF_L.txt
+sub_list_test = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
 
 
 
