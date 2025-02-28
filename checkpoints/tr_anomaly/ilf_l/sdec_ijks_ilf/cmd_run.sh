@@ -21,13 +21,13 @@ cd $repo_verifyber_path
 echo "ciao"
 
 #Train
-python main.py TR-ANOMALY -opt train --exp ${experiment_path}\
-              --with_gt &> $log_file_train 
+#python main.py TR-ANOMALY -opt train --exp ${experiment_path}\
+#              --with_gt &> $log_file_train 
 
 
 #Test
-#best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ilf-l_1/models/best_model_ep-300_score-0.778140.pth"
-#python main.py TR-ANOMALY -opt test --exp ${experiment_path}\
-#              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
+best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ijks-ilf-l_0/models/best_model_ep-20_score-0.798368.pth"
+python main.py TR-ANOMALY -opt test --exp ${experiment_path}\
+              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
               
 
