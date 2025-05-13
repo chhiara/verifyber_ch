@@ -10,7 +10,7 @@ k = 5
 pool_op = max
 
 ########## training ###########
-n_epochs = 1000
+n_epochs = 600
 #n_epochs = 2
 
 
@@ -40,7 +40,7 @@ nll_w = n
 val_in_train = y
 val_freq = 20
 
-n_workers = 12
+n_workers = 7
 
 model_dir = models
 save_model = y
