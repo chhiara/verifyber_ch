@@ -10,7 +10,7 @@ k = 5
 pool_op = max
 
 ########## training ###########
-n_epochs = 1000
+n_epochs = 600
 #n_epochs = 2
 
 
@@ -77,14 +77,14 @@ labels_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmIn
 val_dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_encoded/5mm/40pos_30negnn_30neg_vox_int/
 
 
-#sub_list_train = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__FAT_L.txt
-#sub_list_val = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__FAT_L.txt
-#sub_list_test = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__FAT_L.txt
+sub_list_train = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__FAT_L.txt
+sub_list_val = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__FAT_L.txt
+sub_list_test = /app/data/input_model/splits_file_inputModel/FAT_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__FAT_L.txt
 
 #files to test - few subjects sub_list
-sub_list_train = /app/data/input_model/splits_file_inputModel/FAT_L/test_train_FAT_L.txt
-sub_list_val = /app/data/input_model/splits_file_inputModel/FAT_L/test_val_FAT_L.txt
-sub_list_test = /app/data/input_model/splits_file_inputModel/FAT_L/test_test_FAT_L.txt
+#sub_list_train = /app/data/input_model/splits_file_inputModel/FAT_L/test_train_FAT_L.txt
+#sub_list_val = /app/data/input_model/splits_file_inputModel/FAT_L/test_val_FAT_L.txt
+#sub_list_test = /app/data/input_model/splits_file_inputModel/FAT_L/test_test_FAT_L.txt
 
 
 
@@ -92,10 +92,10 @@ sub_list_test = /app/data/input_model/splits_file_inputModel/FAT_L/test_test_FAT
 bundle_name = FAT_L
 
 #fixed size train
-#fixed_size = 1500
+fixed_size = 1500
 
 #fixed size test
-fixed_size = 6000
+#fixed_size = 6000
 
 
 # dimensionality of input, if normal streamlines dimensions are (x,y,z) -> 3
@@ -118,7 +118,7 @@ same_size = 0
 nll_w_decay = n # class re-weighting decay
 #nll_w_decay_step = 90
 
-experiment_name = sdec_nodropout_loss_nll-tracto-anomaly-pyt-l
+experiment_name = sdec_nodropout_loss_nll-tracto-anomaly-fat-l
 
 ####### ************************************************************************
 ####### ************************************************************************
