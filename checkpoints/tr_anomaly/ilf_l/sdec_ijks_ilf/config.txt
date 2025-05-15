@@ -98,10 +98,10 @@ sub_list_test = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__T
 bundle_name = ILF_L
 
 #fixed size train
-fixed_size = 1500
+#fixed_size = 1500
 
 #fixed size test
-#fixed_size = 6000
+fixed_size = 6000
 
 
 # dimensionality of input, if normal streamlines dimensions are (x,y,z) -> 3
