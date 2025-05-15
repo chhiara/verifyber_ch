@@ -3,6 +3,7 @@ import os
 import os.path
 import torch
 import numpy as np
+import sys
 
 import nibabel as nib
 import glob
@@ -180,8 +181,11 @@ class TractAnomlayDataset(gDataset):
             n_streamlines=T.header['nb_streamlines']
 
         elif self.data_ext=="npy":
-            streams_laoded = np.load(T_file, allow_pickle=True)
-            n_streamlines = streams_laoded.shape[0]
+            try:
+                streams_laoded = np.load(T_file, allow_pickle=True)
+                n_streamlines = streams_laoded.shape[0]
+            except:
+                print("Can t load this file:", T_file)
         else:
             raise(f"Error: data_ext nor 'npy or 'trk' as expected, but {self.data_ext}")
 
@@ -248,13 +252,30 @@ class TractAnomlayDataset(gDataset):
             #streams_sampled = np.array([streams_laoded[i_streamline] for i_streamline in sample['points']], object)
             streams_sampled = streams_laoded[sample['points']] 
             lengths = np.array([ s.shape[0] for s in streams_sampled], int)
-            streams = (np.concatenate(streams_sampled, axis=0)).astype(np.float32)
-            
+
+
+
+           
+            #streams_shapes_len_count=np.unique(np.array([len(s.shape) for s in streams_sampled]), return_counts=True)
+            #print(f"Strem len count before reshaping line", streams_shapes_len_count)
+            #print(f"Shape first and last streamline before reshaping", streams_sampled[0].shape, streams_sampled[-1].shape )
+
+            #if a streamline is composed of a single point I need to remove it. I can identify the 
+            # streamlines made up of a single point checking the length of the shapes
+            #  the streamline to 2 dimensions
+            streams_sampled =  np.array([s  for s in streams_sampled if len(s.shape)==2],dtype="object")
+
+            #--print for sanoty check that after reshaping I have not changed the info and data structure
+            #streams_shapes_len_count_after=np.unique(np.array([len(s.shape) for s in streams_sampled]), return_counts=True)
+            #print(f"Strem len count after reshaping line", streams_shapes_len_count_after)
+            #print(f"Shape first and last streamline after reshaping", streams_sampled[0].shape, streams_sampled[-1].shape )
+            #streams = (np.concatenate(streams_sampled, axis=0)).astype(np.float32)
             #print(f"streams_sampled: {streams_sampled.shape}")
             #print(f"streams_sampled[0].shape: {streams_sampled[0].shape}")
             #print(f"streams.shape: {streams.shape}")
             #print(f"sample['points']: {len(sample['points'])} {type(sample['points'])}   sample['points'][:4]{sample['points'][:4]}")
             
+            streams = (np.concatenate(streams_sampled, axis=0)).astype(np.float32)
 
         if self.same_size:
             #present in hcpc version
