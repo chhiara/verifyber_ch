@@ -67,14 +67,14 @@ data_name=__ijks__
 labels_name=__Label__1bdl_0neg__
 
 #real path
-#dataset_dir = /raid/home/nilab/chiara/datasets/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30neg_vox_int/
-#labels_dir = /raid/home/nilab/chiara/datasets/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30neg_vox_int/
+#dataset_dir = /raid/home/nilab/chiara/datasets/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30negvox_int/
+#labels_dir = /raid/home/nilab/chiara/datasets/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30negvox_int/
 
 
 #path mnt in container
-dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30neg_vox_int/
-labels_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30neg_vox_int/
-val_dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30neg_vox_int/
+dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30negvox_int/
+labels_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30negvox_int/
+val_dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_ijks/5mm/40pos_30negnn_30negvox_int/
 
 
 sub_list_train = /app/data/input_model/splits_file_inputModel/IFOF_L/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__IFOF_L.txt
