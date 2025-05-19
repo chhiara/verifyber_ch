@@ -1,7 +1,7 @@
 
 
 #!/usr/bin/bash 
-#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=7  --shm-size=800m verifyber:gpu
+#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=6  --shm-size=800m verifyber:gpu
 #conda run --no-capture-output -n verifyber bash cmd_run.sh
 
 path_code_parent="/app/src/local/"
