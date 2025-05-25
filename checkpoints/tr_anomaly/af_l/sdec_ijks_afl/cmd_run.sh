@@ -22,14 +22,14 @@ cd $repo_verifyber_path
 
 #-----train and test with balanced samples: 40% positive, 30% nn negative, 30% random negative
 #Train
-python -u main.py TR-ANOMALY -opt train --exp ${experiment_path}\
-              --with_gt &> $log_file_train 
+#python -u main.py TR-ANOMALY -opt train --exp ${experiment_path}\
+#              --with_gt &> $log_file_train 
 
 
 #Test
-#best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-af-l_0/models/best_model_ep-420_score-0.816775.pth"
-#python main.py TR-ANOMALY -opt test --exp ${experiment_path}\
-#              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
+best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ijks-af-l_0/models/best_model_ep-360_score-0.788298.pth"
+python main.py TR-ANOMALY -opt test --exp ${experiment_path}\
+              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
               
 
 #Test on all the streamline in the perilesional area
