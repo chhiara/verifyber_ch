@@ -23,7 +23,7 @@ cd $repo_verifyber_path
 
 #-----train and test with balanced samples: 40% positive, 30% nn negative, 30% random negative
 #Train
-tr_anomaly_multibundle
+
 python main.py TR-ANOMALY-MULTI-BUNDLE -opt train --exp ${experiment_path}\
               --with_gt &> $log_file_train 
 
