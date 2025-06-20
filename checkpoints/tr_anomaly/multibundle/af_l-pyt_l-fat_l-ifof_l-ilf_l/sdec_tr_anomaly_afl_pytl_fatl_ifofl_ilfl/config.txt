@@ -10,8 +10,8 @@ k = 5
 pool_op = max
 
 ########## training ###########
-#n_epochs = 1000
-n_epochs = 2
+n_epochs = 600
+#n_epochs = 2
 
 
 optimizer = adam
@@ -81,14 +81,14 @@ labels_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmIn
 val_dataset_dir = /app/data/input_model/tractograms_filt_forTumDefLeft_Tumwarped_rmInv_res_balanced_encoded/5mm/40pos_30negnn_30neg_vox_int/
 
 
-#sub_list_train = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
-#sub_list_val = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
-#sub_list_test = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
+sub_list_train = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__train__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
+sub_list_val = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__val__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
+sub_list_test = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__IFOF_L__PYT_L__ILF_L__FAT_L__AF_L.txt
 
 #files to test - few subjects sub_list
-sub_list_train = /app/data/input_model/splits_file_inputModel/MultiBundle/test_train.txt
-sub_list_val = /app/data/input_model/splits_file_inputModel/MultiBundle/test_val.txt
-sub_list_test = /app/data/input_model/splits_file_inputModel/MultiBundle/test_test.txt
+#sub_list_train = /app/data/input_model/splits_file_inputModel/MultiBundle/test_train.txt
+#sub_list_val = /app/data/input_model/splits_file_inputModel/MultiBundle/test_val.txt
+#sub_list_test = /app/data/input_model/splits_file_inputModel/MultiBundle/test_test.txt
 
 
 #only to test code
