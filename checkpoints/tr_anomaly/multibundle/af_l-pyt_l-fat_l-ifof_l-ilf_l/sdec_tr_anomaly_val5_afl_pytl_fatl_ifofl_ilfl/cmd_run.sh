@@ -1,7 +1,7 @@
 
 
 #!/usr/bin/bash 
-#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=2  --shm-size=800m verifyber:gpu
+#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=3  --shm-size=800m verifyber:gpu
 #conda run --no-capture-output -n verifyber bash cmd_run.sh
 
 path_code_parent="/app/src/local/"
@@ -24,14 +24,14 @@ cd $repo_verifyber_path
 #-----train and test with balanced samples: 40% positive, 30% nn negative, 30% random negative
 #Train
 
-python main.py TR-ANOMALY-MULTI-BUNDLE -opt train --exp ${experiment_path}\
-              --with_gt &> $log_file_train 
+#python main.py TR-ANOMALY-MULTI-BUNDLE -opt train --exp ${experiment_path}\
+#              --with_gt &> $log_file_train 
 
 
 #Test
-#best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-pyt-l_1/models/best_model_ep-220_score-0.849185.pth"
-#python main.py TR-ANOMALY-MULTI-BUNDLE -opt test --exp ${experiment_path}\
-#              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
+best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll_val5_tracto-anomaly_afl_pytl_fatl_ifofl_ilfl_0/models/best_model_ep-185_score-0.820526.pth"
+python main.py TR-ANOMALY-MULTI-BUNDLE -opt test --exp ${experiment_path}\
+              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test 
               
 
 #Test on all the streamline in the perilesional area
