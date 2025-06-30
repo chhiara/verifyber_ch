@@ -68,8 +68,9 @@ if __name__ == '__main__':
 
     #### LAUNCH RUNS
     if cfg['opt'] == 'train':
-        print_cfg(cfg[args.var])
+        print_cfg(cfg[args.var])           
         train(cfg[args.var])
+        
     if cfg['opt'] == 'test':
         if not args.exp:
             sys.exit('Missing argument --exp')
