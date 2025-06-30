@@ -22,6 +22,7 @@ from utils.train_utils import (
     initialize_loss_dict,
     log_losses,
     update_bn_decay,
+    dump_model_complete
 )
 from utils.data.transforms import RndSampling
 
@@ -123,7 +124,7 @@ def train_ep(cfg, dataloader, model, optimizer, writer, epoch, n_iter):
     return ep_loss, n_iter
 
 
-def val_ep(cfg, val_dataloader, model, writer, epoch, best_epoch, best_score):
+def val_ep(cfg, val_dataloader, model, writer, epoch, best_epoch, best_score, lr_scheduler, optimizer):
     """
     run the validation phase when called
     """
@@ -196,6 +197,11 @@ def val_ep(cfg, val_dataloader, model, writer, epoch, best_epoch, best_score):
         if cfg["save_model"]:
             dump_model(cfg, model, writer.log_dir, epoch, epoch_score, best=best)
 
+        #code written by chiara to save not only the model, but also the optmizer and the lr scheduler, so that it is possible to continue the training 
+        #easily if the training stops before finishing
+        if cfg["save_model_complete"]:
+            dump_model_complete(cfg, model, writer.log_dir, epoch, epoch_score, optimizer, lr_scheduler, best=best)
+
         return best_epoch, best_score
 
 
@@ -259,7 +265,8 @@ def train(cfg):
         ### validation during training
         if epoch % int(cfg["val_freq"]) == 0 and cfg["val_in_train"]:
             best_epoch, best_pred = val_ep(
-                cfg, val_dataloader, model, writer, epoch, best_epoch, best_pred
+                cfg, val_dataloader, model, writer, epoch, best_epoch, best_pred,
+                lr_scheduler, optimizer
             )
 
         # update lr
