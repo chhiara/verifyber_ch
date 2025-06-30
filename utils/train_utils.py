@@ -143,6 +143,39 @@ def dump_model(cfg, model, logdir, epoch, score, best=False):
                '%s/%smodel_ep-%d_score-%f.pth' %
                     (modeldir, prefix, epoch, score))
 
+
+#function written from chiara to save all variables necessary (in theory) to continue training
+def dump_model_complete(cfg, model, logdir, epoch, score, optimizer, lr_scheduler, best=False):
+    prefix = ''
+    if best:
+        prefix = 'best_'
+
+    modeldir = os.path.join(logdir, cfg['model_dir'])
+    if not os.path.exists(modeldir):
+        os.makedirs(modeldir)
+    else:
+        os.system('rm %s/%smodel*.pth' % (modeldir, prefix))
+
+        os.system('rm %s/%sOpt_LrSched_Model*.pth' % (modeldir, prefix))
+
+
+    torch.save(model.state_dict(),
+               '%s/%smodel_ep-%d_score-%f.pth' %
+                    (modeldir, prefix, epoch, score))
+
+
+    checkpoint = { 
+            'epoch': epoch,
+            'model': model,
+            'optimizer': optimizer,
+            'lr_sched': lr_scheduler}
+    
+    torch.save(checkpoint,
+               '%s/%sOpt_LrSched_Model_ep-%d_score-%f.pth' %
+                    (modeldir, prefix, epoch, score))
+
+
+
 def dump_code(cfg, logdir):
     codedir = os.path.join(logdir, 'train_code/.')
     if not os.path.exists(codedir):
