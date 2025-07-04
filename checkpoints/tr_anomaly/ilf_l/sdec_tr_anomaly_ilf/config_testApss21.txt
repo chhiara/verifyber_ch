@@ -54,10 +54,10 @@ print_bwgraph = n
 ####### ************************************************************************
 ####### ************************************************************************
 
-[TR-ANOMALY]
+[TR-ANOMALY-SINGLE-SUBID]
 task = classification
 ########### data ###########
-dataset = tr_anomaly
+dataset = tr_anomaly_singleSubjID
 
 # data_ext can be trk or npy
 data_ext=npy 
@@ -74,7 +74,7 @@ labels_name=__Label__1bdl_0neg__
 #sub_list_test = /raid/home/nilab/chiara/datasets/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
 
 #sub lsit test real path apss 
-#sub_list_test = /raid/home/nilab/chiara/datasets/input_model/apps_data/subList_apss21.txt
+#sub_list_test = /raid/home/nilab/chiara/datasets/input_model/subList_apss21.txt
 
 #path mnt in container
 dataset_dir = /app/data/input_model/apps_data/tractograms_filt_t1_rigid_res_encoded/allFibers_FiltLeftRmLoopsLen_res5mm_vox_int/
@@ -87,7 +87,7 @@ sub_list_val = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tr
 #sub_list_test = /app/data/input_model/ilf_train_split/tr_val_ts__random_split__Tracto_65-10-25____Brats_tumDefAtL5mm_AtL1percBdlTemplArea__tr-val-ts__75-10-15__nMinStream1500__test__ILF_L.txt
 
 #path of where test subjects apss are saved
-sub_list_test = /app/data/input_model/apps_data/subList_apss21.txt
+sub_list_test = /app/data/input_model/subList_apss21.txt
 
 
 
