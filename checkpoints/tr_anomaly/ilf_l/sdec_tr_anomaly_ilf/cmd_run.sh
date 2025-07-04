@@ -1,7 +1,7 @@
 
 
 #!/usr/bin/bash 
-#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=0 verifyber --shm-size=800m
+#docker run -v /raid/home/nilab/chiara/datasets/input_model/:/app/data/input_model/ -v /raid/home/nilab/chiara/local/:/app/src/local/  --rm -it --gpus device=0  --shm-size=800m verifyber:gpu
 #conda run --no-capture-output -n verifyber bash cmd_run.sh
 
 path_code_parent="/app/src/local/"
@@ -46,7 +46,7 @@ cd $repo_verifyber_path
 best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ilf-l_1/models/best_model_ep-300_score-0.778140.pth"
 config_apss="${experiment_path}/config_testApss21.txt"
 
-python main.py TR-ANOMALY -opt test --exp ${experiment_path} --config ${config_apss}\
+python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
               --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apss
               
 
