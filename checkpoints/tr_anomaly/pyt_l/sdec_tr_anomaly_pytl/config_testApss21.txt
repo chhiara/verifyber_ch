@@ -70,8 +70,9 @@ labels_name=__Label__1bdl_0neg__
 
 
 #sub lsit test real path apss 
-#sub_list_test = /raid/home/nilab/chiara/datasets/input_model/subList_apss21.txt
+#sub_list_test = /raid/home/nilab/chiara/datasets/input_model/subList_ptl_apss21.txt
 
+#NB: i had problem in saving 2 skeleton for pytl. So i have a different list of test subjects comapred to the other bundles
 #path mnt in container
 dataset_dir = /app/data/input_model/apps_data/tractograms_filt_t1_rigid_res_encoded/allFibers_FiltLeftRmLoopsLen_res5mm_vox_int/
 labels_dir = /app/data/input_model/apps_data/tractograms_filt_t1_rigid_res_encoded/allFibers_FiltLeftRmLoopsLen_res5mm_vox_int/
@@ -79,7 +80,8 @@ val_dataset_dir = /app/data/input_model/apps_data/tractograms_filt_t1_rigid_res_
 
 
 #path of where test subjects apss are saved
-sub_list_test = /app/data/input_model/subList_apss21.txt
+#NB: i had problem in saving 2 skeleton for pytl. So i have a different list of test subjects comapred to the other bundles
+sub_list_test = /app/data/input_model/subList_ptl_apss21.txt
 
 
 #bundle name coherent with apsss: pt_l not pyt_l
