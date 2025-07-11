@@ -104,10 +104,10 @@ sub_list_test = /app/data/input_model/splits_file_inputModel/MultiBundle/tr_val_
 #bundle_name = PYT_L
 
 #fixed size train
-fixed_size = 1500
+#fixed_size = 1500
 
 #fixed size test
-#fixed_size = 6000
+fixed_size = 6000
 
 
 # dimensionality of input, if normal streamlines dimensions are (x,y,z) -> 3
