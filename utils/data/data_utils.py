@@ -84,6 +84,22 @@ def get_dataset(cfg, trans, train=True):
                                         data_ext=cfg['data_ext'],
                                         data_name=cfg['data_name'])
 
+    
+       
+    if  'tr_anomaly_singleSubjID' == cfg['dataset']:
+        dataset = ds.TractAnomalySingleSubID(sub_list,
+                                        cfg['dataset_dir'],
+                                        same_size=cfg['same_size'],
+                                        transform=transforms.Compose(trans),
+                                        return_edges=cfg['return_edges'],
+                                        load_one_full_subj=False,
+                                        labels_dir=cfg['labels_dir'],
+                                        labels_name=cfg['labels_name'],
+                                        data_ext=cfg['data_ext'],
+                                        data_name=cfg['data_name'],
+                                        bundle_name=cfg['bundle_name'])
+
+
     dataloader = gDataLoader(dataset,
                              batch_size=batch_size,
                              shuffle=shuffling,

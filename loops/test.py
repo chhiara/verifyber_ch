@@ -108,6 +108,25 @@ def test(cfg):
                                         data_ext=cfg['data_ext'],
                                         data_name=cfg['data_name']
                                         )
+
+
+          
+    elif  cfg['dataset'] =='tr_anomaly_singleSubjID':
+        dataset = ds.TractAnomalySingleSubID(cfg['sub_list_test'],
+                                        cfg['dataset_dir'],
+                                        transform=transforms.Compose(trans_val),
+                                        with_gt=cfg['with_gt'],
+                                        #distance=T.Distance(norm=True,cat=False),
+                                        return_edges=True,
+                                        split_obj=True,
+                                        train=False,
+                                        load_one_full_subj=False,
+                                        labels_dir=cfg['labels_dir'],
+                                        labels_name=cfg['labels_name'],
+                                        data_ext=cfg['data_ext'],
+                                        data_name=cfg['data_name'],
+                                        bundle_name=cfg['bundle_name'])
+
      
 
     else:
