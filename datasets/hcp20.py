@@ -235,13 +235,13 @@ class HCP20Dataset(gDataset):
         lengths = torch.from_numpy(lengths).long()
         #print('sls lengths:',sls_lengths)
 
-        #if lengths=[4,5,3]  ->  batch_vec=[0000,11111,222]
+        #if lengths=[4,5,3]  ->  batch_vec=[0000,11111,222] #indicates for eah point the streamline index
         #lengths: number of points of each streamline
         batch_vec = torch.arange(len(lengths)).repeat_interleave(lengths)
 
         #batch_slices: indexes of start of each streamline
         #first streamline begin from 0, the successive with the indexes defined by
-        # the cumulative sum of the lengths
+        # the cumulative sum of the lengths, where each streamline finishes/starts
         batch_slices = torch.cat([torch.tensor([0]), lengths.cumsum(dim=0)])
 
         #erase first and last element
@@ -254,7 +254,7 @@ class HCP20Dataset(gDataset):
         l = streams.shape[0]
 
         #features and spatial position correspond
-        #x=streams -> features of the nodes
+        #x=streams -> features of the nodes, that are the same as the position of the nodes
         #pos=streams-> spatial position of the nodes 
         graph_sample = gData(x=streams,
                              lengths=lengths,
