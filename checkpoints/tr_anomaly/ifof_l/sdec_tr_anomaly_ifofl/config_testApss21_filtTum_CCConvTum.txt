@@ -111,7 +111,7 @@ same_size = 0
 nll_w_decay = n # class re-weighting decay
 #nll_w_decay_step = 90
 
-experiment_name = sdec_nodropout_loss_nll-tracto-anomaly-ijks-ifof-l
+experiment_name =  sdec_nodropout_loss_nll-tracto-anomaly-ifof-l
 
 ####### ************************************************************************
 ####### ************************************************************************
