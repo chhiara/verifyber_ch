@@ -49,6 +49,11 @@ class RadiusEdgeConv(EdgeConv):
 class DECSeq(torch.nn.Module):
     def __init__(self, input_size, n_classes, dropout=False, k=5, aggr='max',pool_op='max'):
         super(DECSeq, self).__init__()
+        #Edge conv require a nn to be trained that in this case is MLP with layers 3x2->64->64->64
+        #the input of the MLP will be each pair of points in the streamline neighbor, connected by the streamline edge
+        #Edge conv concatenateeach 3d point and the differece between each point and its neighbour, creating a input of 3x2=6 this is the input of MLP
+        # then it sums the output of MLP across the different neighbours   
+        #here you call te init of te funciton
         self.conv1 = EdgeConv(MLP([2 * input_size, 64, 64, 64], batch_norm=True), aggr)
         self.conv2 = DynamicEdgeConv(MLP([2 * 64, 128], batch_norm=True), k, aggr)
         self.lin1 = MLP([128 + 64, 1024])
