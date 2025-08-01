@@ -1,5 +1,5 @@
 [DEFAULT]
-#---config file used to test on apss 21 subjects 
+#---config file used to test on apss 21 subjects - by usding the original tumor and the whoole tractogram not filtered in the perilesional area
 ########### model ###########
 model = sdec
 batch_norm = y
