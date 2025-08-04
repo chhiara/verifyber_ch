@@ -70,7 +70,7 @@ labels_name=__Label__1bdl_0neg__
 
 
 #sub lsit test real path apss 
-#sub_list_test =/raid/home/nilab/chiara/datasets/input_model/splits_file_inputModel/subListApss/subList_apss21_defTum_PYT_L.txt
+#sub_list_test =/raid/home/nilab/chiara/datasets/input_model/splits_file_inputModel/subListApss/subList_apss21_defTum_PT_L.txt
 
 #path mnt in container
 dataset_dir =  /app/data/input_model/APSS_21/tractograms_filt_t1_rigid_forTumDef_res_encoded/Fibers_LeftRmLoopsFiltLenSmooth5gausResamplmm_FiltTum5mm_res5mm_vox_int/
@@ -78,11 +78,11 @@ labels_dir = /app/data/input_model/APSS_21/tractograms_filt_t1_rigid_forTumDef_r
 val_dataset_dir =  /app/data/input_model/APSS_21/tractograms_filt_t1_rigid_forTumDef_res_encoded/Fibers_LeftRmLoopsFiltLenSmooth5gausResamplmm_FiltTum5mm_res5mm_vox_int/
 
 #path of where test subjects apss are saved
-sub_list_test = /app/data/input_model/splits_file_inputModel/subListApss/subList_apss21_defTum_PYT_L.txt
+sub_list_test = /app/data/input_model/splits_file_inputModel/subListApss/subList_apss21_defTum_PT_L.txt
 
 
 
-bundle_name = PYT_L
+bundle_name = PT_L
 
 #fixed size train
 #fixed_size = 1500
