@@ -76,7 +76,19 @@ cd $repo_verifyber_path
 
 
 #---test on IFOF_L  DTI TRACTO
-bundle="IFOF_L"
+# bundle="IFOF_L"
+# tracto="dti"
+# best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ifof-l_0/models/best_model_ep-20_score-0.902220.pth"
+# config_apss="${experiment_path}/config_testApssExt_${tracto}_${bundle}.txt"
+# log_file_test_apssFiltTumConv_dti="${experiment_path}/log_file_test_ApssExt_FiltTum_TumCCConv_${tracto}_${bundle}.txt"
+# python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
+#               --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apssFiltTumConv_dti
+
+
+
+
+#---test on IFOF_R  DTI TRACTO
+bundle="IFOF_R"
 tracto="dti"
 best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ifof-l_0/models/best_model_ep-20_score-0.902220.pth"
 config_apss="${experiment_path}/config_testApssExt_${tracto}_${bundle}.txt"
