@@ -75,7 +75,7 @@ val_dataset_dir = /app/data/input_model/apss_ext_data/Fibers_RmLoopsFiltLenHemSm
 
 
 #path of where test subjects apss are saved
-sub_list_test = /app/data/input_model/subListApssExt/subList_APSSext_defTum__CSD_PROB__AF_L.txt
+sub_list_test = /app/data/input_model/subListApssExt/subList_APSSext_defTum__DTI_DET__AF_L.txt
 
 
 
