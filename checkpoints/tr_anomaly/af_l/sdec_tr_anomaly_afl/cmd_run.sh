@@ -93,7 +93,7 @@ bundle="AF_R"
 tracto="dti"
 best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-af-l_0/models/best_model_ep-420_score-0.816775.pth"
 config_apss="${experiment_path}/config_testApssExt_${tracto}_${bundle}.txt"
-log_file_test_apssFiltTumConv_dti="${experiment_path}/log_file_test_ApssExt_FiltTum_TumCCConv_${tracto}_afl.txt"
+log_file_test_apssFiltTumConv_dti="${experiment_path}/log_file_test_ApssExt_FiltTum_TumCCConv_${tracto}_afr.txt"
 python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
               --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apssFiltTumConv_dti
        
