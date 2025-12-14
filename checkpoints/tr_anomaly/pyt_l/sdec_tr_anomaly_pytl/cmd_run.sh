@@ -58,13 +58,23 @@ cd $repo_verifyber_path
 #Test on apss subjects in the perilesional area of tum I estimated is moved for at least 5 mm; the tum used are not the original ones but are corrected to
 #to be convex and connected  
 
-best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-pyt-l_1/models/best_model_ep-220_score-0.849185.pth"
+# best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-pyt-l_1/models/best_model_ep-220_score-0.849185.pth"
 
-config_apss="${experiment_path}/config_testApss21_filtTum_CCConvTum.txt"
+# config_apss="${experiment_path}/config_testApss21_filtTum_CCConvTum.txt"
 
-python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
-              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apssFiltTumConv
+# python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
+#               --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apssFiltTumConv
        
        
               
 
+
+#---test on APSSext PT_L  CSD TRACTO
+bundle="PT_L"
+tracto="csd"
+best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-pyt-l_1/models/best_model_ep-220_score-0.849185.pth"
+config_apss="${experiment_path}/config_testApssExt_${tracto}_${bundle}.txt"
+log_file_test_apssFiltTumConv_dti="${experiment_path}/log_file_test_ApssExt_FiltTum_TumCCConv_${tracto}_${bundle}.txt"
+python main.py TR-ANOMALY-SINGLE-SUBID -opt test --exp ${experiment_path} --config ${config_apss}\
+              --with_gt  --weights ${best_model_path} --save_pred &> $log_file_test_apssFiltTumConv_dti
+          
