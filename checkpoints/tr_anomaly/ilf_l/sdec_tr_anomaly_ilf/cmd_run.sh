@@ -91,7 +91,7 @@ cd $repo_verifyber_path
 
 #---test on APSSext ILF_L  CSD TRACTO
 bundle="ILF_L"
-tracto="dti"
+tracto="csd"
 best_model_path="${repo_verifyber_path}/runs/sdec_nodropout_loss_nll-tracto-anomaly-ilf-l_1/models/best_model_ep-300_score-0.778140.pth"
 config_apss="${experiment_path}/config_testApssExt_${tracto}_${bundle}.txt"
 log_file_test_apssFiltTumConv_dti="${experiment_path}/log_file_test_ApssExt_FiltTum_TumCCConv_${tracto}_${bundle}.txt"
